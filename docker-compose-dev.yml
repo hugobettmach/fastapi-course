@@ -1,0 +1,32 @@
+version: "3"
+services:
+  api:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - 8000:8000
+    # env_file:
+    #   - .env
+    environment:
+      - DATABASE_HOSTNAME=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=fastapi
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=PaZaLdE80
+      - SECRET_KEY=044ad5628c93c375f016eddaa6f36cf898b43ba1ec17a80b6a22ed5d552bbec8
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+    volumes:
+      - ./:/usr/src/app:ro
+    command: app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=PaZaLdE80
+      - POSTGRES_DB=fastapi
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+volumes:
+  postgres-db: null
