@@ -26,7 +26,7 @@ class UserLogin(BaseModel):
 class PostBase(BaseModel):
     title: str
     content: str
-    published: bool = True
+    published: Optional[bool] = True
 
 
 class PostCreate(PostBase):
@@ -36,7 +36,7 @@ class PostCreate(PostBase):
 class PostResponse(PostBase):
     id: int
     created_at: datetime
-    # user_id: int
+    user_id: int
     user: UserResponse
 
     class Config:
